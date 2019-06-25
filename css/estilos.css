@@ -1,0 +1,431 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100%;
+    background-image: radial-gradient(73% 147%, #EADFDF 59%, #ECE2DF 100%), radial-gradient(91% 146%, rgba(255, 255, 255, 0.50) 47%, rgba(0, 0, 0, 0.50) 100%);
+    background-blend-mode: screen;
+    background-repeat: round;
+    background-size: 100%;
+
+
+}
+
+p {
+    font-family: 'Source Code Pro', monospace;
+}
+
+h2 {
+    font-size: 35px;
+    text-transform: uppercase;
+    color: rgb(145, 106, 48);
+}
+
+header {
+    padding: 20px 0;
+}
+
+div.contenido {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 1200px;
+    margin: 20px auto;
+    padding-left: 30px;
+}
+
+.logo {
+    width: 100%;
+    text-align: center;
+}
+
+.textlogo {
+    text-align: center;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 100px;
+    color: rgb(168, 168, 168);
+    text-transform: uppercase;
+}
+
+.subtitulo {
+    margin-left: 550px;
+    font-size: 20px;
+}
+
+
+
+.iconfly {
+    margin-left: 550px;
+    font-size: 40px;
+    color: #50afc7;
+
+}
+
+/**navegacion**/
+.navegacion {
+    background-color: rgb(88, 117, 179);
+
+
+}
+
+.navbar-brand {
+    color: black;
+}
+
+nav {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 6px;
+    height: 80px;
+}
+
+nav ul {
+    width: max-content;
+    margin: 0 auto;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+nav ul li a {
+    color: black;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    text-decoration: none;
+    width: 150px;
+}
+
+nav ul li a:hover {
+    background-color: darkcyan;
+    transition: 0.5s;
+}
+
+/**segundo nivel**/
+
+
+.dropdown-item:hover {
+    background-color: #5ebfd4;
+    transition: 0.5s;
+}
+
+
+/** Contenido principal**/
+main {
+    margin-top: 120px;
+}
+
+@media (max-width:520px) {
+    .titulomain {
+        margin-top: 190px;
+    }
+
+}
+
+.titulomain {
+    text-align: center;
+    margin-bottom: 70px;
+    text-transform: uppercase;
+    color: gold;
+}
+
+/** Entradas de post**/
+
+
+article p {
+    color: black;
+    line-height: 2;
+    text-align: justify;
+    font-size: 17px;
+    width: 100%;
+}
+
+article img {
+    width: 300px;
+    margin-right: 30px;
+}
+
+.boton {
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 10px 30px;
+    display: inline-block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.oculto {
+    display: none;
+}
+
+/**paquetes**/
+.seccion-paquetes {
+    margin-top: 50px;
+}
+
+.seccion-paquetes h2 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.lista-paquetes h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    text-align: center;
+
+}
+
+.lista-paquetes {
+    margin: 20px;
+    border: 1px solid #e1e1e1;
+    background-color: #ffffff;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.lista-paquetes:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 50px #666;
+    transition: all .3s ease;
+    border: 1px solid #fe4918;
+}
+
+.lista-paquetes li {
+    list-style: none;
+}
+
+.lista-paquetes button {
+    margin-top: 30px;
+    margin-left: 55px;
+    padding: 10px;
+    color: black;
+    background-color: #fe4918;
+}
+
+.tabla-precio {
+    border: 1px solid #e1e1e1;
+    background-color: #ffffff;
+    padding: 40px 0;
+    text-align: center;
+}
+
+div.tabla-precio:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 50px #666;
+    transition: all .3s ease;
+    border: 1px solid #fe4918;
+}
+
+.numero {
+    color: #fe4918;
+    text-decoration: none;
+    text-align: center;
+    font-size: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.img-lista {
+    width: 50%;
+    border-radius: 20px;
+}
+
+.tabla-paquetes ul li {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 14px;
+    margin-bottom: 20px;    
+    margin-top: 20px;
+    text-transform: uppercase;
+    color: 868686;
+    line-height: 26px;
+    list-style: none;
+
+}
+
+.tabla-paquetes ul li i {
+    color: green;
+    margin-right: 10px;
+}
+
+.button {
+    border: 1px salid black;
+    border-radius: 20px;
+}
+
+
+
+
+
+/**Footer**/
+footer {
+    background-color: #353535;
+    ;
+    padding-top: 40px;
+    margin-top: 50px;
+}
+
+footer h2 {
+    color: #ffffff;
+}
+
+.nosotros {
+    margin-left: 50px;
+}
+
+.nosotros p {
+    color: #ffffff;
+}
+
+p.copyright {
+    padding: 20px 0;
+    text-align: center;
+    color: rgb(9, 5, 252);
+
+}
+
+.redes-sociales ul li {
+    font-size: 5px;
+    list-style: none;
+    display: inline-block;
+    font-size: 40px;
+    padding: 0 20px 0 20px;
+}
+
+.redes-sociales ul>li {
+    font-size: 20px;
+    padding-right: 10px;
+}
+
+.iconredes {
+    padding-right: 10px;
+}
+
+.fa-facebook {
+    background: #aaa;
+    border-radius: 10%;
+    padding: 1em;
+    color: White;
+    margin: 1em;
+    transition: all ease 0.5s;
+}
+
+.fa-facebook:hover {
+    background: #3b5998;
+}
+
+.fa-instagram {
+    background: #aaa;
+    border-radius: 10%;
+    padding: 1em;
+    color: White;
+    margin: 1em;
+    transition: all ease 0.5s;
+}
+
+.fa-instagram:hover {
+    background: #F77737;
+}
+
+
+.fa-whatsapp {
+    background: #aaa;
+    border-radius: 10%;
+    padding: 1em;
+    color: White;
+    margin: 1em;
+    transition: all ease 0.5s;
+}
+
+.fa-whatsapp:hover {
+    background: #25D366;
+}
+
+.fa-youtube {
+    background: #aaa;
+    border-radius: 10%;
+    padding: 1em;
+    color: White;
+    margin: 1em;
+    transition: all ease 0.5s;
+}
+
+.fa-youtube:hover {
+    background: #FD1D1D;
+
+}
+
+/**hoteles**/
+.seccion-hoteles h2 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.lista-hoteles {
+    margin: 10px;
+    border: 1px solid #e1e1e1;
+    background-color: #ffffff;
+    text-align: center;
+    list-style: none;
+}
+
+.lista-hoteles:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 50px #666;
+    transition: all .3s ease;
+    border: 2px solid #2f21f7;
+}
+.lista-hoteles {
+    margin-bottom: 60px;
+}
+.lista-hoteles h3 {
+    font-family: 'Open Sans', sans-serif;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+
+.tabla-hoteles ul li {
+    font-family: 'Baloo Bhai', cursive;
+    font-size: 14px;
+    margin-top: 30px;
+    text-transform: uppercase;
+    line-height: 26px;
+    list-style: none;
+
+}
+
+.tabla-hoteles ul li i {
+    color: green;
+    margin-right: 10px;
+}
+
+.descuentos {
+    text-transform: uppercase;
+    font-size: 20px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 20px;
+    margin-bottom: -0.2px;
+}
+/**destinos**/
+.table {
+    margin-bottom: 200px;
+}
