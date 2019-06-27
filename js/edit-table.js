@@ -9,51 +9,38 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
   let destino = document.querySelector(".destinoInput");
-  destino.addEventListener("keypress", function (event) {
-    tabla.thing.destinos = event.target.value;
-  })
   let estadia = document.querySelector(".estadiaInput");
-  estadia.addEventListener("keypress", function (event) {
-    tabla.thing.estadia = event.target.value;
-  })
   let servicio = document.querySelector(".servicioInput");
-  servicio.addEventListener("keypress", function (event) {
-    tabla.thing.servicios = event.target.value;
-  })
   let pago = document.querySelector(".pagoInput");
-  pago.addEventListener("keypress", function (event) {
-    tabla.thing.pago = event.target.value;
-  })
-
-
-
 
   let btnEnviar = document.querySelector(".btnEnviar");
   btnEnviar.addEventListener("click", agregar);
   async function agregar () {
     let url = "http://web-unicen.herokuapp.com/api/groups/grupo66/tablaviaje";
+    tabla.thing.destinos = destino.value;
+    tabla.thing.estadia = estadia.value;
+    tabla.thing.servicios = servicio.value;
+    tabla.thing.pago = pago.value;
     try{
-      let r = await fetch(url, {
+      let response = await fetch(url, {
         "method": "POST",
         'headers': {
           'Content-Type': 'application/json'
         },
         "body": JSON.stringify(tabla)
       });
-      let json = await r.json();
+      let json = await response.json();
       cargatabla();
     }
     catch(e){
-      
+      console.log(e);
     }
   }
-
-  
   async function cargatabla(){
     let url = "http://web-unicen.herokuapp.com/api/groups/grupo66/tablaviaje";
     try {
-      let r= await fetch(url);
-      let json= await r.json();
+      let response = await fetch(url);
+      let json = await response.json();
       if (json.tablaviaje.length>0) {
         let tbody = document.querySelector(".tebodi");
         tbody.innerHTML= " ";
@@ -75,8 +62,8 @@ function mostrarTabla(tablaviaje) {
   let tCell3 = tRow.insertCell(3);
   let tCell4 = tRow.insertCell(4);
   let tCell5 = tRow.insertCell(5);
-  tCell0.innerHTML = tablaviaje.thing.destinos; 
-  tCell1.innerHTML = tablaviaje.thing.estadia; 
+  tCell0.innerHTML = tablaviaje.thing.destinos;
+  tCell1.innerHTML = tablaviaje.thing.estadia;
   tCell2.innerHTML = tablaviaje.thing.servicios;
   tCell3.innerHTML = tablaviaje.thing.pago;
   let btnborrar = document.createElement('button');
@@ -97,22 +84,11 @@ btnagrega3.addEventListener("click" , function(){
     agregar();
   }
 })
-
+function vaciarTabla(tabla) {
+  let tblBody = document.querySelector(".tebodi")
+  let cantTabla = Object.keys(tabla).length; // Object.keys devuelve un arreglo con las prop del objeto. de eso, hacemos length
+  while (tblBody.rows.length) {
+    tblBody.deleteRow(-1);
+  }
+}
 });
-
-
-
-
-
-
-
-
-
-
-// function vaciarTabla(tabla) {
-//   let tblBody = document.querySelector(".tebodi")
-//   let cantTabla = Object.keys(tabla).length; // Object.keys devuelve un arreglo con las prop del objeto. de eso, hacemos length
-//   while (tblBody.rows.length) {
-//     tblBody.deleteRow(-1);
-//   }
-// }
