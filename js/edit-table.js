@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let servicio = document.querySelector(".servicioInput");
   let pago = document.querySelector(".pagoInput");
   let div = document.querySelector(".div");
+  let result = document.querySelector(".result");
   let btnEnviar = document.querySelector(".btnEnviar");
   let url = "http://web-unicen.herokuapp.com/api/groups/grupo66/tablaviaje/";
   btnEnviar.addEventListener("click", agregar);
@@ -61,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function mostrarTabla(tablaviaje) {
-    let tblBody = document.querySelector(".tebodi")
+    let tblBody = document.querySelector(".tebodi");
     let tRow = tblBody.insertRow(); // aca insertamos una fila a tbody
     tRow.id = tablaviaje._id;
     let tCell0 = tRow.insertCell(0);
@@ -99,7 +100,6 @@ document.addEventListener("DOMContentLoaded", function () {
     btneditar.classList += "btn btn-info btn-sm";
     tCell5.appendChild(btneditar);
     btneditar.innerHTML = "Editar";
-
   }
   let btnagrega3 = document.querySelector(".btn-agrega3");
   btnagrega3.addEventListener("click", function () {
@@ -107,22 +107,38 @@ document.addEventListener("DOMContentLoaded", function () {
       agregar();
     }
   })
-  let btnvaciar = document.querySelector(".btn-vaciar");
-  btnvaciar.addEventListener("click", vaciarTabla(tabla));
-
-  function vaciarTabla(tabla) {
-    let tblBody = document.querySelector(".tebodi")
-    let cantTabla = Object.keys(tabla).length; // Object.keys devuelve un arreglo con las prop del objeto. de eso, hacemos length
-    while (tblBody.rows.length) {
-      tblBody.deleteRow(-1);
+  let btnfiltro = document.getElementById("btn-filtrado");
+  btnfiltro.addEventListener("click", async function () { 
+    try {
+      result.innerHTML = "buscando...";
+      document.querySelector(".tebodi").innerHTML = "";
+      let r = await fetch(url);
+      let json = await r.json();
+      let filtroingresado = document.querySelector("#filtrado").value;
+      if (json.tablaviaje.length > 0) {
+        for (let i = 0; i < json.tablaviaje.length; i++) {
+          if (filtroingresado == json.tablaviaje[i].thing.destinos || filtroingresado == json.tablaviaje[i].thing.estadia || filtroingresado == json.tablaviaje[i].thing.servicios || filtroingresado == json.tablaviaje[i].thing.pago) {
+            mostrarTabla(json.tablaviaje[i]);
+            result.innerHTML =  "Busqueda completada";
+          }
+        }
+      }
+       else {
+        result.innerHTML = "No hay resultados";
+      }
     }
-  }
-
-
-
-
-
-
-
-
+    catch(e) {
+      result.innerHTML = "Fallo la busqueda";
+    }
+  })
 });
+// let btnvaciar = document.querySelector(".btn-vaciar");
+// btnvaciar.addEventListener("click", vaciarTabla(tabla));
+
+// function vaciarTabla(tabla) {
+//   let tblBody = document.querySelector(".tebodi")
+//   let cantTabla = Object.keys(tabla).length; // Object.keys devuelve un arreglo con las prop del objeto. de eso, hacemos length
+//   while (tblBody.rows.length) {
+//     tblBody.deleteRow(-1);
+//   }
+// }
