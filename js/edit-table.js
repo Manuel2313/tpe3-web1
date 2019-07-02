@@ -121,7 +121,11 @@ document.addEventListener("DOMContentLoaded", function () {
             mostrarTabla(json.tablaviaje[i]);
             result.innerHTML =  "Busqueda completada";
           }
+          else {
+            result.innerHTML = "No se encontraron resultados"
+          }
         }
+
       }
        else {
         result.innerHTML = "No hay resultados";
