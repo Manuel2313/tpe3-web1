@@ -1,4 +1,4 @@
-"use strict"
+ "use strict"
 document.addEventListener("DOMContentLoaded", function () {
   let tabla = {
     "thing": {
@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let div = document.querySelector(".div");
   let result = document.querySelector(".result");
   let btnEnviar = document.querySelector(".btnEnviar");
+  let formEdit = document.querySelector(".modeEdit");
   let url = "http://web-unicen.herokuapp.com/api/groups/grupo66/tablaviaje/";
   btnEnviar.addEventListener("click", agregar);
   async function agregar() {
@@ -26,20 +27,20 @@ document.addEventListener("DOMContentLoaded", function () {
       div.innerHTML = "Guardando..";
       let response = await fetch(url, {
         "method": "POST",
-        'headers': {
-          'Content-Type': 'application/json'
+        "headers": {
+          "Content-Type": "application/json"
         },
         "body": JSON.stringify(tabla)
       });
       let json = await response.json();
-      cargatabla();
+      cargaTabla();
       div.innerHTML = "se cargo con exito";
     } catch (e) {
       console.log(e);
     }
   }
-  cargatabla();
-  async function cargatabla() {
+  cargaTabla();
+  async function cargaTabla() {
     try {
       div.innerHTML = "Cargando..";
       let response = await fetch(url);
@@ -49,7 +50,6 @@ document.addEventListener("DOMContentLoaded", function () {
         tbody.innerHTML = " ";
         for (let i = 0; i < json.tablaviaje.length; i++) {
           mostrarTabla(json.tablaviaje[i]);
-
         }
         div.innerHTML = "Cargado con exito";
       } else {
@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     } catch (e) {
       div.innerHTML = "fallo la carga";
+      console.log(e);
     }
   }
 
@@ -75,40 +76,75 @@ document.addEventListener("DOMContentLoaded", function () {
     tCell1.innerHTML = tablaviaje.thing.estadia;
     tCell2.innerHTML = tablaviaje.thing.servicios;
     tCell3.innerHTML = tablaviaje.thing.pago;
-    let btnborrar = document.createElement('button');
-    btnborrar.classList += "btn btn-info btn-sm";
-    btnborrar.innerHTML = "Borrar";
-    btnborrar.dataset.id = tablaviaje._id;
-    btnborrar.addEventListener("click", async function () {
+    let btnBorrar = document.createElement('button');
+    btnBorrar.classList += "btn btn-info btn-sm";
+    btnBorrar.innerHTML = "Borrar";
+    btnBorrar.dataset.id = tablaviaje._id;
+    btnBorrar.addEventListener("click", async function () {
       try {
         div.innerHTML = "Borrando..";
-        let idborrar = btnborrar.dataset.id;
-        let urlborrar = url + idborrar;
-        let r = await fetch(urlborrar, {
+        let idBorrar = btnBorrar.dataset.id;
+        let urlBorrar = url + idBorrar;
+        let r = await fetch(urlBorrar, {
           "method": "DELETE"
         })
-        let filaborrar = document.getElementById(idborrar);
-        filaborrar.parentElement.removeChild(filaborrar);
+        let filaBorrar = document.getElementById(idBorrar);
+        filaBorrar.parentElement.removeChild(filaBorrar);
         div.innerHTML = "Borrado con exito";
       } catch (e) {
         div.innerHTML = "Fallo el borrado";
+        console.log(e);
       }
-    })
-    tCell4.appendChild(btnborrar);
-    let btneditar = document.createElement('button');
-    btneditar.id = "btnedit";
-    btneditar.classList += "btn btn-info btn-sm";
-    tCell5.appendChild(btneditar);
-    btneditar.innerHTML = "Editar";
-  }
+    }) // fin evento borrar
+    tCell4.appendChild(btnBorrar);
+
+    let btnEditar = document.createElement('button');
+    btnEditar.classList += "btn btn-info btn-sm";
+    btnEditar.innerHTML = "Editar";
+    btnEditar.dataset.id = tablaviaje._id;
+    btnEditar.addEventListener("click", ()=>{
+      formEdit.classList.remove("editHidden");
+      formEdit.dataset.id = btnEditar.dataset.id;
+    }); // fin evento editar
+    tCell5.appendChild(btnEditar);
+  } // fin mostrarTabla
+
+  let btnPut = document.querySelector(".btnEditar");
+  btnPut.addEventListener("click", async function (){
+    try{
+      div.innerHTML = "Enviando los cambios...";
+      tabla.thing.destinos = document.querySelector(".destinoEdit").value;
+      tabla.thing.estadia = document.querySelector(".estadiaEdit").value;
+      tabla.thing.servicios = document.querySelector(".servicioEdit").value;
+      tabla.thing.pago = document.querySelector(".pagoEdit").value;
+      let editId = formEdit.dataset.id;
+      let urlEdicion = url+editId;
+      let response = await fetch(urlEdicion, { // aca enviar lo tomado en los input
+        "method": "PUT",
+        'headers': {
+          'Content-Type': 'application/json'
+        },
+        "body": JSON.stringify(tabla)
+      });
+      let json = await response.json();
+      cargaTabla();
+      formEdit.classList.add("editHidden");
+      div.innerHTML = "Enviado con éxito";
+    } catch (e){
+      div.innerHTML = "Falló la edición"
+      console.log(e);
+    }
+  });
+
   let btnagrega3 = document.querySelector(".btn-agrega3");
   btnagrega3.addEventListener("click", function () {
     for (let i = 0; i < 3; i++) {
       agregar();
     }
   })
+
   let btnfiltro = document.getElementById("btn-filtrado");
-  btnfiltro.addEventListener("click", async function () { 
+  btnfiltro.addEventListener("click", async function () {
     try {
       result.innerHTML = "buscando...";
       document.querySelector(".tebodi").innerHTML = "";
@@ -124,9 +160,8 @@ document.addEventListener("DOMContentLoaded", function () {
           else {
             result.innerHTML = "No se encontraron resultados"
           }
-        }
-
-      }
+        } // fin for
+      } //fin if
        else {
         result.innerHTML = "No hay resultados";
       }
@@ -136,13 +171,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   })
 });
-// let btnvaciar = document.querySelector(".btn-vaciar");
-// btnvaciar.addEventListener("click", vaciarTabla(tabla));
+ /*let btnvaciar = document.querySelector(".btn-vaciar");
+ btnvaciar.addEventListener("click", vaciarTabla(tabla));
 
-// function vaciarTabla(tabla) {
-//   let tblBody = document.querySelector(".tebodi")
-//   let cantTabla = Object.keys(tabla).length; // Object.keys devuelve un arreglo con las prop del objeto. de eso, hacemos length
-//   while (tblBody.rows.length) {
-//     tblBody.deleteRow(-1);
-//   }
-// }
+ function vaciarTabla(tabla) {
+   let tblBody = document.querySelector(".tebodi")
+   let cantTabla = Object.keys(tabla).length; // Object.keys devuelve un arreglo con las prop del objeto. de eso, hacemos length
+   while (tblBody.rows.length) {
+     tblBody.deleteRow(-1);
+   }
+ }*/
