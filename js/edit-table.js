@@ -55,7 +55,6 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         div.innerHTML = "No se encontraron datos";
       }
-
     } catch (e) {
       div.innerHTML = "fallo la carga";
       console.log(e);
@@ -170,14 +169,34 @@ document.addEventListener("DOMContentLoaded", function () {
       result.innerHTML = "Fallo la busqueda";
     }
   })
-});
- /*let btnvaciar = document.querySelector(".btn-vaciar");
- btnvaciar.addEventListener("click", vaciarTabla(tabla));
 
- function vaciarTabla(tabla) {
-   let tblBody = document.querySelector(".tebodi")
-   let cantTabla = Object.keys(tabla).length; // Object.keys devuelve un arreglo con las prop del objeto. de eso, hacemos length
-   while (tblBody.rows.length) {
-     tblBody.deleteRow(-1);
-   }
- }*/
+  let btnvaciar = document.querySelector(".btn-vaciar");
+  btnvaciar.addEventListener("click", async ()=>{
+    div.innerHTML = "Vaciando..."
+    let response = await fetch(url);
+    let json = await response.json();
+    let tblBody = document.querySelector(".tebodi");
+    if (json.tablaviaje.length > 0){
+      for(let i=0; i<json.tablaviaje.length;i++){
+        try {
+          let urlParcial = url+json.tablaviaje[i]._id;
+          let r = await fetch(urlParcial, {
+            "method": "DELETE"
+          })
+          tblBody.deleteRow(-1);
+        } catch (e) {
+          console.log(e);
+        }
+      } // fin for
+      cargaTabla();
+      div.innerHTML = "Vaciado con éxito"
+    }
+  }); // fin vaciar
+});
+
+   //let cantTabla = Object.keys(tabla).length; // Object.keys devuelve un arreglo con las prop del objeto. de eso, hacemos length
+   /*if (tabla.length > 0){
+     for (let i=0;i<tabla.length;i++){
+      tabla.splice (-1,1);
+     }
+   }*/
